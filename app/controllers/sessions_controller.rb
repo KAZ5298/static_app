@@ -1,10 +1,14 @@
 class SessionsController < ApplicationController
+  include SessionsHelper
+  
   def new
   end
+  
   def create
     user = User.find_by(email: params[:session][:email])
     if user.present? && user.authenticate(params[:session][:password])
-      render "new"
+      log_in(user)
+      redirect_to user
     else
       render "new"
     end
