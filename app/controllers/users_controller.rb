@@ -44,7 +44,7 @@ class UsersController < ApplicationController
   
   def logged_in_user
     unless logged_in?
-      session[:forwarding_url] = request.original_url
+      store_url
       flash[:danger] = "ログインしてください"
       redirect_to login_url
     end
